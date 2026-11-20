@@ -72,9 +72,11 @@ El repositorio se encuentra organizado en módulos desacoplados para firmware, a
 ```
 robot_sumo_usando_agenteS_de_ia/
 ├── README.md                                      <- Documentación general del sistema
-├── diagram.json                                   <- Esquema de simulación para Wokwi (1x ESP32)
-├── libraries.txt                                  <- Dependencias de librerías para Wokwi
-├── sketch.ino                                     <- Firmware histórico simplificado para Wokwi
+├── simulacion/
+│   ├── diagram.json                               <- Esquema de simulación para Wokwi (1x ESP32)
+│   ├── libraries.txt                              <- Dependencias de librerías para Wokwi
+│   ├── sketch.ino                                 <- Firmware histórico simplificado para Wokwi
+│   └── README.md                                  <- Guía e instrucciones de simulación en Wokwi
 ├── firmware/
 │   ├── control_remoto/
 │   │   ├── control_remoto.ino                     <- Firmware emisor ESP-NOW con teclado 4x4
@@ -83,18 +85,19 @@ robot_sumo_usando_agenteS_de_ia/
 │       ├── robot_sumo.ino                         <- Firmware receptor, L9110S, HC-SR04 y Bluetooth
 │       └── README.md                              <- Documentación bloque por bloque y diagrama de flujo
 └── app/
-    ├── RobotSumoV2.aia.zip                        <- Archivo comprimido original de MIT App Inventor
+    ├── RobotSumoV2.aia.zip                        <- Paquete fuente original de MIT App Inventor
     ├── youngandroidproject/project.properties     <- Configuración del proyecto móvil
     ├── src/appinventor/ai_kevin/RobotSumoV2/      <- Bloques funcionales (.bky) e interfaz (.scm)
     ├── assets/                                    <- Iconos y capturas de la aplicación
     └── README.md                                  <- Documentación de la app móvil y protocolo SPP
 ```
 
-| Módulo / Subsistema | Código Fuente | Documentación Técnica Detallada |
+| Módulo / Subsistema | Código / Archivos | Documentación Técnica Detallada |
 | :--- | :--- | :--- |
 | **Control Remoto (Transmisor ESP-NOW)** | [`control_remoto.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/control_remoto.ino) | [README Control Remoto](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/README.md) |
 | **Robot Sumo (Receptor y Combate)** | [`robot_sumo.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/robot_sumo.ino) | [README Robot Sumo](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/README.md) |
 | **App Móvil (MIT App Inventor)** | Directorio [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/) | [README Aplicación Móvil](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/README.md) |
+| **Simulación Wokwi (1x ESP32)** | Directorio [`simulacion/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/) | [README Simulación](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/README.md) |
 
 ---
 
@@ -190,7 +193,7 @@ En el Modo Autónomo, el robot evalúa continuamente la distancia frente a sí m
 
 ## 6. Aplicación Móvil (MIT App Inventor)
 
-El directorio [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/) contiene el proyecto completo descomprimido de MIT App Inventor, además del archivo original empaquetado [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip). Para el análisis detallado de pantallas, bloques y assets, consultar el [README de la Aplicación Móvil](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/README.md).
+El directorio [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/) contiene el proyecto completo descomprimido de MIT App Inventor, además del archivo original empaquetado [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/RobotSumoV2.aia.zip). Para el análisis detallado de pantallas, bloques y assets, consultar el [README de la Aplicación Móvil](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/README.md).
 
 ### Características de la App:
 - **Selector de Lista Bluetooth**: Escaneo y emparejamiento con el dispositivo `ESP32_Sumo_Robot`.
@@ -251,7 +254,7 @@ flowchart TD
 1. **Detección y Consulta del Error**:
    El desarrollador reporta los síntomas observados en hardware o simulación (por ejemplo, desconexiones intermitentes de ESP-NOW al activar Bluetooth, lecturas anómalas de `pulseIn` en el sensor ultrasónico o bloqueos del bus I2C).
 2. **Ingestión Profunda del Workspace**:
-   El agente no opera sobre fragmentos aislados; lee el árbol completo de directorios, examinando el esquema de hardware ([`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/diagram.json)), las dependencias de librerías ([`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/libraries.txt)) y los firmwares modulares en [`firmware/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/).
+   El agente no opera sobre fragmentos aislados; lee el árbol completo de directorios, examinando el esquema de hardware ([`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/diagram.json)), las dependencias de librerías ([`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/libraries.txt)), el entorno en [`simulacion/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/) y los firmwares modulares en [`firmware/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/).
 3. **Análisis Estático y Dinámico de Código**:
    Se efectúa una auditoría de recursos: comprobación de conflictos entre pines analógicos del ADC2 (los cuales se inhabilitan cuando el Wi-Fi está encendido en el ESP32), asignación de temporizadores PWM y cálculo de consumo de corriente teórico.
 4. **Bucle de Clarificación y Preguntas de Contexto**:
@@ -284,8 +287,8 @@ La integración de agentes autónomos en la formación técnica marca un cambio 
 
 ### 8.1. Simulación en Wokwi
 1. Abrir el entorno [Wokwi para VS Code](https://wokwi.com/) o la plataforma web.
-2. Cargar el archivo de conexión física [`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/diagram.json).
-3. Asegurar que las librerías `LiquidCrystal_I2C` y `Keypad` estén registradas en [`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/libraries.txt).
+2. Cargar el directorio [`simulacion/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/) con el esquema de conexión física [`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/diagram.json).
+3. Asegurar que las librerías `LiquidCrystal_I2C` y `Keypad` estén registradas en [`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/simulacion/libraries.txt).
 4. Iniciar la simulación y presionar las teclas en el teclado matricial para verificar la respuesta de los motores en pantalla y consola serial.
 
 ### 8.2. Carga en Hardware Físico
@@ -296,4 +299,4 @@ La integración de agentes autónomos en la formación técnica marca un cambio 
    - Soporte nativo de `BluetoothSerial`, `WiFi` y `esp_now` (incluidas en el core ESP32).
 3. Compilar y flashear el código del emisor en [`firmware/control_remoto/control_remoto.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/control_remoto.ino) en el microcontrolador del mando.
 4. Compilar y flashear el código del receptor en [`firmware/robot_sumo/robot_sumo.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/robot_sumo.ino) en el microcontrolador del robot.
-5. Para emparejar con la aplicación móvil, instalar el APK compilado desde [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip) (o desde [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/)) y vincular con el dispositivo `ESP32_Sumo_Robot`.
+5. Para emparejar con la aplicación móvil, instalar el APK compilado desde [`app/RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/RobotSumoV2.aia.zip) (o desde [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/)) y vincular con el dispositivo `ESP32_Sumo_Robot`.

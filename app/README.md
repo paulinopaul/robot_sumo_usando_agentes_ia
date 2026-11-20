@@ -69,5 +69,5 @@ La aplicación envía cadenas de texto de un solo carácter por el socket Blueto
 
 1. Ingresar a [MIT App Inventor](https://ai2.appinventor.mit.edu/).
 2. Ir al menú superior: **Projects $\rightarrow$ Import project (.aia) from my computer**.
-3. Seleccionar el archivo raíz [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip) (o renombrado a `.aia`).
+3. Seleccionar el archivo empaquetado [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/RobotSumoV2.aia.zip) (o renombrado a `.aia`).
 4. Para compilar la aplicación en formato instalable para teléfonos Android, dirigirse a **Build $\rightarrow$ Android App (.apk)**.
