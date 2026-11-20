@@ -1,0 +1,207 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="component_event" id="LP1_BeforePicking" x="32" y="32">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="ListPicker" is_generic="false" instance_name="ListPicker1" event_name="BeforePicking"></mutation>
+    <field name="COMPONENT_SELECTOR">ListPicker1</field>
+    <statement name="DO">
+      <block type="component_set_get" id="LP1_SetElements">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="ListPicker" set_or_get="set" property_name="Elements" is_generic="false" instance_name="ListPicker1"></mutation>
+        <field name="COMPONENT_SELECTOR">ListPicker1</field>
+        <field name="PROP">Elements</field>
+        <value name="VALUE">
+          <block type="component_set_get" id="BTC1_AddressesAndNames">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" set_or_get="get" property_name="AddressesAndNames" is_generic="false" instance_name="BluetoothClient1"></mutation>
+            <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+            <field name="PROP">AddressesAndNames</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="LP1_AfterPicking" x="32" y="172">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="ListPicker" is_generic="false" instance_name="ListPicker1" event_name="AfterPicking"></mutation>
+    <field name="COMPONENT_SELECTOR">ListPicker1</field>
+    <statement name="DO">
+      <block type="controls_eval_but_ignore" id="Eval_Connect">
+        <value name="VALUE">
+          <block type="component_method" id="BTC1_Connect">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="Connect" is_generic="false" instance_name="BluetoothClient1"></mutation>
+            <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+            <value name="ARG0">
+              <block type="component_set_get" id="LP1_Selection">
+                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="ListPicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="ListPicker1"></mutation>
+                <field name="COMPONENT_SELECTOR">ListPicker1</field>
+                <field name="PROP">Selection</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BtnManual_Click" x="682" y="32">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BtnManual" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">BtnManual</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendA">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_A">
+            <field name="TEXT">A</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BtnAuto_Click" x="682" y="172">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BtnAuto" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">BtnAuto</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendX">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_X">
+            <field name="TEXT">X</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonStop_Click" x="682" y="312">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonStop" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonStop</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendStop">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_Stop">
+            <field name="TEXT">S</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonArriba_TouchDown" x="1332" y="32">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonArriba" event_name="TouchDown"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonArriba</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendF">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_F">
+            <field name="TEXT">F</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonArriba_TouchUp" x="1332" y="172">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonArriba" event_name="TouchUp"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonArriba</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendS_Arriba">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_S_Arriba">
+            <field name="TEXT">S</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonAbajo_TouchDown" x="1332" y="312">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonAbajo" event_name="TouchDown"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonAbajo</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendB">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_B">
+            <field name="TEXT">B</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonAbajo_TouchUp" x="1332" y="452">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonAbajo" event_name="TouchUp"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonAbajo</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendS_Abajo">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_S_Abajo">
+            <field name="TEXT">S</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonIzquierda_TouchDown" x="1982" y="32">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonIzquierda" event_name="TouchDown"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonIzquierda</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendL">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_L">
+            <field name="TEXT">L</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonIzquierda_TouchUp" x="1982" y="172">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonIzquierda" event_name="TouchUp"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonIzquierda</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendS_Izq">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_S_Izq">
+            <field name="TEXT">S</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonDerecha_TouchDown" x="1982" y="312">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonDerecha" event_name="TouchDown"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonDerecha</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendR">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_R">
+            <field name="TEXT">R</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="BotonDerecha_TouchUp" x="1982" y="452">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="BotonDerecha" event_name="TouchUp"></mutation>
+    <field name="COMPONENT_SELECTOR">BotonDerecha</field>
+    <statement name="DO">
+      <block type="component_method" id="BTC1_SendS_Der">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="BluetoothClient" method_name="SendText" is_generic="false" instance_name="BluetoothClient1"></mutation>
+        <field name="COMPONENT_SELECTOR">BluetoothClient1</field>
+        <value name="ARG0">
+          <block type="text" id="Txt_S_Der">
+            <field name="TEXT">S</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks xmlns="https://appinventor.mit.edu/ns/project/" ya-version="237" language-version="39"></yacodeblocks>
+</xml>

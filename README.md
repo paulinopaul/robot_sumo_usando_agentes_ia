@@ -65,9 +65,42 @@ flowchart TD
 
 ---
 
-## 3. Arquitectura de Hardware y Mapeo de Conexiones
+## 3. Estructura del Repositorio y Módulos
 
-### 3.1. Microcontrolador Receptor (Robot Sumo)
+El repositorio se encuentra organizado en módulos desacoplados para firmware, aplicación móvil y simulación:
+
+```
+robot_sumo_usando_agenteS_de_ia/
+├── README.md                                      <- Documentación general del sistema
+├── diagram.json                                   <- Esquema de simulación para Wokwi (1x ESP32)
+├── libraries.txt                                  <- Dependencias de librerías para Wokwi
+├── sketch.ino                                     <- Firmware histórico simplificado para Wokwi
+├── firmware/
+│   ├── control_remoto/
+│   │   ├── control_remoto.ino                     <- Firmware emisor ESP-NOW con teclado 4x4
+│   │   └── README.md                              <- Documentación bloque por bloque y diagrama de flujo
+│   └── robot_sumo/
+│       ├── robot_sumo.ino                         <- Firmware receptor, L9110S, HC-SR04 y Bluetooth
+│       └── README.md                              <- Documentación bloque por bloque y diagrama de flujo
+└── app/
+    ├── RobotSumoV2.aia.zip                        <- Archivo comprimido original de MIT App Inventor
+    ├── youngandroidproject/project.properties     <- Configuración del proyecto móvil
+    ├── src/appinventor/ai_kevin/RobotSumoV2/      <- Bloques funcionales (.bky) e interfaz (.scm)
+    ├── assets/                                    <- Iconos y capturas de la aplicación
+    └── README.md                                  <- Documentación de la app móvil y protocolo SPP
+```
+
+| Módulo / Subsistema | Código Fuente | Documentación Técnica Detallada |
+| :--- | :--- | :--- |
+| **Control Remoto (Transmisor ESP-NOW)** | [`control_remoto.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/control_remoto.ino) | [README Control Remoto](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/README.md) |
+| **Robot Sumo (Receptor y Combate)** | [`robot_sumo.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/robot_sumo.ino) | [README Robot Sumo](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/README.md) |
+| **App Móvil (MIT App Inventor)** | Directorio [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/) | [README Aplicación Móvil](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/README.md) |
+
+---
+
+## 4. Arquitectura de Hardware y Mapeo de Conexiones
+
+### 4.1. Microcontrolador Receptor (Robot Sumo)
 
 El vehículo utiliza un controlador **ESP32 DevKitC V4** conectado a periféricos de sensado, tracción y telemetría visual:
 
