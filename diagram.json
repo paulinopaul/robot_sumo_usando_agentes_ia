@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Antigravity Engineering",
+  "author": "Grupo_Pablo",
   "editor": "wokwi",
   "parts": [
     {
@@ -22,101 +22,358 @@
       "id": "lcd",
       "top": -150,
       "left": -60,
-      "attrs": { "pins": "i2c" }
+      "attrs": {
+        "pins": "i2c"
+      }
     },
     {
       "type": "wokwi-hc-sr04",
       "id": "ultrasonic",
       "top": -150,
       "left": 320,
-      "attrs": { "distance": "60" }
+      "attrs": {
+        "distance": "60"
+      }
     },
     {
       "type": "wokwi-rgb-led",
       "id": "rgb",
       "top": 360,
       "left": 460,
-      "attrs": { "common": "cathode" }
+      "attrs": {
+        "common": "cathode"
+      }
     },
     {
       "type": "wokwi-dc-motor",
       "id": "motor_l",
       "top": 40,
       "left": 480,
-      "attrs": { "label": "Motor Izquierdo" }
+      "attrs": {
+        "label": "Motor Izquierdo"
+      }
     },
     {
       "type": "wokwi-dc-motor",
       "id": "motor_r",
       "top": 180,
       "left": 480,
-      "attrs": { "label": "Motor Derecho" }
+      "attrs": {
+        "label": "Motor Derecho"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_m_l_fwd",
       "top": 40,
       "left": 660,
-      "attrs": { "color": "green", "label": "M-IZQ ADELANTE" }
+      "attrs": {
+        "color": "green",
+        "label": "M-IZQ ADELANTE"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_m_l_rev",
       "top": 100,
       "left": 660,
-      "attrs": { "color": "orange", "label": "M-IZQ ATRAS" }
+      "attrs": {
+        "color": "orange",
+        "label": "M-IZQ ATRAS"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_m_r_fwd",
       "top": 180,
       "left": 660,
-      "attrs": { "color": "green", "label": "M-DER ADELANTE" }
+      "attrs": {
+        "color": "green",
+        "label": "M-DER ADELANTE"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_m_r_rev",
       "top": 240,
       "left": 660,
-      "attrs": { "color": "orange", "label": "M-DER ATRAS" }
+      "attrs": {
+        "color": "orange",
+        "label": "M-DER ATRAS"
+      }
     }
   ],
   "connections": [
-    [ "keypad:R1", "esp32:13", "green", [ "v40", "h180" ] ],
-    [ "keypad:R2", "esp32:12", "green", [ "v50", "h190" ] ],
-    [ "keypad:R3", "esp32:19", "green", [ "v60", "h200" ] ],
-    [ "keypad:R4", "esp32:23", "green", [ "v70", "h210" ] ],
-    [ "keypad:C1", "esp32:33", "orange", [ "v80", "h220" ] ],
-    [ "keypad:C2", "esp32:32", "orange", [ "v90", "h230" ] ],
-    [ "keypad:C3", "esp32:16", "orange", [ "v100", "h240" ] ],
-    [ "keypad:C4", "esp32:17", "orange", [ "v110", "h250" ] ],
-
-    [ "lcd:GND", "esp32:GND.1", "black", [ "v-20", "h100" ] ],
-    [ "lcd:VCC", "esp32:5V", "red", [ "v-10", "h120" ] ],
-    [ "lcd:SDA", "esp32:21", "blue", [ "v20", "h60" ] ],
-    [ "lcd:SCL", "esp32:22", "yellow", [ "v30", "h70" ] ],
-
-    [ "ultrasonic:VCC", "esp32:5V", "red", [ "v-20", "h-150" ] ],
-    [ "ultrasonic:GND", "esp32:GND.1", "black", [ "v-30", "h-170" ] ],
-    [ "ultrasonic:TRIG", "esp32:5", "green", [ "v50", "h-40" ] ],
-    [ "ultrasonic:ECHO", "esp32:18", "purple", [ "v60", "h-50" ] ],
-
-    [ "rgb:COM", "esp32:GND.2", "black", [ "v30", "h-120" ] ],
-    [ "rgb:R", "esp32:15", "red", [ "v-40", "h-100" ] ],
-    [ "rgb:B", "esp32:4", "blue", [ "v-60", "h-140" ] ],
-
-    [ "esp32:25", "motor_l:VCC", "green", [ "v0" ] ],
-    [ "esp32:26", "motor_l:GND", "orange", [ "v0" ] ],
-    [ "esp32:25", "led_m_l_fwd:A", "green", [ "v0" ] ],
-    [ "led_m_l_fwd:C", "esp32:GND.2", "black", [ "v10", "h-120" ] ],
-    [ "esp32:26", "led_m_l_rev:A", "orange", [ "v0" ] ],
-    [ "led_m_l_rev:C", "esp32:GND.2", "black", [ "v10", "h-120" ] ],
-
-    [ "esp32:27", "motor_r:VCC", "green", [ "v0" ] ],
-    [ "esp32:14", "motor_r:GND", "orange", [ "v0" ] ],
-    [ "esp32:27", "led_m_r_fwd:A", "green", [ "v0" ] ],
-    [ "led_m_r_fwd:C", "esp32:GND.2", "black", [ "v10", "h-120" ] ],
-    [ "esp32:14", "led_m_r_rev:A", "orange", [ "v0" ] ],
-    [ "led_m_r_rev:C", "esp32:GND.2", "black", [ "v10", "h-120" ] ]
+    [
+      "keypad:R1",
+      "esp32:13",
+      "green",
+      [
+        "v40",
+        "h180"
+      ]
+    ],
+    [
+      "keypad:R2",
+      "esp32:12",
+      "green",
+      [
+        "v50",
+        "h190"
+      ]
+    ],
+    [
+      "keypad:R3",
+      "esp32:19",
+      "green",
+      [
+        "v60",
+        "h200"
+      ]
+    ],
+    [
+      "keypad:R4",
+      "esp32:23",
+      "green",
+      [
+        "v70",
+        "h210"
+      ]
+    ],
+    [
+      "keypad:C1",
+      "esp32:33",
+      "orange",
+      [
+        "v80",
+        "h220"
+      ]
+    ],
+    [
+      "keypad:C2",
+      "esp32:32",
+      "orange",
+      [
+        "v90",
+        "h230"
+      ]
+    ],
+    [
+      "keypad:C3",
+      "esp32:16",
+      "orange",
+      [
+        "v100",
+        "h240"
+      ]
+    ],
+    [
+      "keypad:C4",
+      "esp32:17",
+      "orange",
+      [
+        "v110",
+        "h250"
+      ]
+    ],
+    [
+      "lcd:GND",
+      "esp32:GND.1",
+      "black",
+      [
+        "v-20",
+        "h100"
+      ]
+    ],
+    [
+      "lcd:VCC",
+      "esp32:5V",
+      "red",
+      [
+        "v-10",
+        "h120"
+      ]
+    ],
+    [
+      "lcd:SDA",
+      "esp32:21",
+      "blue",
+      [
+        "v20",
+        "h60"
+      ]
+    ],
+    [
+      "lcd:SCL",
+      "esp32:22",
+      "yellow",
+      [
+        "v30",
+        "h70"
+      ]
+    ],
+    [
+      "ultrasonic:VCC",
+      "esp32:5V",
+      "red",
+      [
+        "v-20",
+        "h-150"
+      ]
+    ],
+    [
+      "ultrasonic:GND",
+      "esp32:GND.1",
+      "black",
+      [
+        "v-30",
+        "h-170"
+      ]
+    ],
+    [
+      "ultrasonic:TRIG",
+      "esp32:5",
+      "green",
+      [
+        "v50",
+        "h-40"
+      ]
+    ],
+    [
+      "ultrasonic:ECHO",
+      "esp32:18",
+      "purple",
+      [
+        "v60",
+        "h-50"
+      ]
+    ],
+    [
+      "rgb:COM",
+      "esp32:GND.2",
+      "black",
+      [
+        "v30",
+        "h-120"
+      ]
+    ],
+    [
+      "rgb:R",
+      "esp32:15",
+      "red",
+      [
+        "v-40",
+        "h-100"
+      ]
+    ],
+    [
+      "rgb:B",
+      "esp32:4",
+      "blue",
+      [
+        "v-60",
+        "h-140"
+      ]
+    ],
+    [
+      "esp32:25",
+      "motor_l:VCC",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp32:26",
+      "motor_l:GND",
+      "orange",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp32:25",
+      "led_m_l_fwd:A",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_m_l_fwd:C",
+      "esp32:GND.2",
+      "black",
+      [
+        "v10",
+        "h-120"
+      ]
+    ],
+    [
+      "esp32:26",
+      "led_m_l_rev:A",
+      "orange",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_m_l_rev:C",
+      "esp32:GND.2",
+      "black",
+      [
+        "v10",
+        "h-120"
+      ]
+    ],
+    [
+      "esp32:27",
+      "motor_r:VCC",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp32:14",
+      "motor_r:GND",
+      "orange",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp32:27",
+      "led_m_r_fwd:A",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_m_r_fwd:C",
+      "esp32:GND.2",
+      "black",
+      [
+        "v10",
+        "h-120"
+      ]
+    ],
+    [
+      "esp32:14",
+      "led_m_r_rev:A",
+      "orange",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_m_r_rev:C",
+      "esp32:GND.2",
+      "black",
+      [
+        "v10",
+        "h-120"
+      ]
+    ]
   ]
 }
