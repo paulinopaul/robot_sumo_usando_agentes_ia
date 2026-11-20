@@ -10,24 +10,24 @@ Este documento detalla la arquitectura, el flujo de ejecución y el análisis bl
 
 ```mermaid
 flowchart TD
-    Inicio([Inicio de Bucle loop]) --> CheckReqBT{¿solicitarActivarBT && !bluetoothActivo?}
+    Inicio([Inicio de Bucle loop]) --> CheckReqBT{solicitarActivarBT y no bluetoothActivo}
     
-    CheckReqBT -- Sí --> TurnOffRF[detenerMotores<br/>esp_now_deinit<br/>WiFi.mode WIFI_OFF<br/>delay 200ms]
-    TurnOffRF --> InitBT[SerialBT.begin 'ESP32_Sumo_Robot'<br/>bluetoothActivo = true]
+    CheckReqBT -- Si --> TurnOffRF[detenerMotores<br/>esp_now_deinit<br/>WiFi.mode WIFI_OFF<br/>delay 200ms]
+    TurnOffRF --> InitBT[SerialBT.begin ESP32_Sumo_Robot<br/>bluetoothActivo = true]
     InitBT --> CheckBTSerial
     
-    CheckReqBT -- No --> CheckBTSerial{¿bluetoothActivo && SerialBT.available?}
+    CheckReqBT -- No --> CheckBTSerial{bluetoothActivo y SerialBT disponible}
     
-    CheckBTSerial -- Sí --> ReadChar[dato = SerialBT.read]
-    ReadChar --> FilterChar{¿dato != '\n' && dato != '\r'?}
-    FilterChar -- Sí --> CallProcCmd[procesarComando dato]
+    CheckBTSerial -- Si --> ReadChar[dato = SerialBT.read]
+    ReadChar --> FilterChar{dato no es salto de linea}
+    FilterChar -- Si --> CallProcCmd[procesarComando dato]
     FilterChar -- No --> CheckAuto
     CallProcCmd --> CheckAuto
     
-    CheckBTSerial -- No --> CheckAuto{¿modoAutonomo == true?}
+    CheckBTSerial -- No --> CheckAuto{modoAutonomo activo}
     
-    CheckAuto -- Sí --> ExecRoutine[Rutina de Combate Autónomo]
-    CheckAuto -- No --> FinLoop([Fin de Iteración])
+    CheckAuto -- Si --> ExecRoutine[Rutina de Combate Autonomo]
+    CheckAuto -- No --> FinLoop([Fin de Iteracion])
     ExecRoutine --> FinLoop
 ```
 
@@ -35,12 +35,12 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    StartAuto([Ejecución Modo Autónomo]) --> Measure[medirDistancia: pulso TRIG 10us y pulseIn ECHO]
-    Measure --> EvalDist{¿distancia > 0 && distancia < 30 cm?}
+    StartAuto([Ejecucion Modo Autonomo]) --> Measure[medirDistancia: pulso TRIG 10us y pulseIn ECHO]
+    Measure --> EvalDist{Distancia entre 1 y 29 cm}
     
-    EvalDist -- Sí --> Embestida[¡Objetivo Detectado!<br/>LCD: 'EMBESTIDA!'<br/>Motores a Tope: moverMotores 255, 0, 255, 0]
+    EvalDist -- Si --> Embestida[Objetivo Detectado<br/>LCD: EMBESTIDA!<br/>Motores a Tope: moverMotores 255, 0, 255, 0]
     
-    EvalDist -- No --> Busqueda[Búsqueda Activa por Rotación<br/>LCD: 'Buscando...'<br/>Giro continuo: moverMotores 140, 0, 0, 140]
+    EvalDist -- No --> Busqueda[Busqueda Activa por Rotacion<br/>LCD: Buscando...<br/>Giro continuo: moverMotores 140, 0, 0, 140]
     
     Embestida --> Delay100[delay 100 ms para estabilidad]
     Busqueda --> Delay100

@@ -39,28 +39,28 @@ Este proyecto implementa una plataforma robótica de combate de categoría **Rob
 
 ```mermaid
 flowchart TD
-    subgraph Emisor["Dispositivo de Control Remoto (ESP32 #2)"]
+    subgraph Emisor["Dispositivo de Control Remoto - ESP32 Emisor"]
         Keypad["Teclado Matricial 4x4"] -->|Lectura de pulsaciones| ESP32_TX["ESP32 Transmisor"]
-        ESP32_TX -->|ESP-NOW Frame (Ultra Baja Latencia)| AntenaTX["Radio 2.4 GHz"]
+        ESP32_TX -->|Trama ESP-NOW - Ultra Baja Latencia| AntenaTX["Radio 2.4 GHz"]
     end
 
     subgraph AppMovil["Dispositivo Móvil Android"]
-        App["MIT App Inventor (RobotSumoV2)"] -->|Bluetooth Serial SPP| AntenaBT["Bluetooth App"]
+        App["MIT App Inventor - RobotSumoV2"] -->|Bluetooth Serial SPP| AntenaBT["Bluetooth App"]
     end
 
-    subgraph Receptor["Robot Sumo 2WD (ESP32 #1)"]
+    subgraph Receptor["Robot Sumo 2WD - ESP32 Receptor"]
         AntenaRX["Radio 2.4 GHz Receptor"] --> ESP32_RX["ESP32 Controlador Principal"]
-        AntenaBT -.->|Comandos 'F','B','L','R','S'| ESP32_RX
+        AntenaBT -.->|Comandos Manuales F B L R S| ESP32_RX
         
-        ESP32_RX -->|PWM Inversión de Giro| L9110S["Puente H L9110S"]
+        ESP32_RX -->|PWM Inversion de Giro| L9110S["Puente H L9110S"]
         L9110S --> Motores["2x Motores DC con Ruedas de Goma"]
         
         SensorUS["Sensor HC-SR04"] -->|Eco de Distancia| ESP32_RX
-        ESP32_RX -->|I2C Data / Clock| LCD["Pantalla LCD 1602 I2C (0x27)"]
-        ESP32_RX -->|Señales GPIO / PWM| LED_RGB["LED Indicador RGB"]
+        ESP32_RX -->|I2C Data y Clock| LCD["Pantalla LCD 1602 I2C - Dir 0x27"]
+        ESP32_RX -->|Senales GPIO y PWM| LED_RGB["LED Indicador RGB"]
     end
 
-    AntenaTX ==>|Comandos de Modo y Tracción| AntenaRX
+    AntenaTX ==>|Comandos de Modo y Traccion| AntenaRX
 ```
 
 ---
@@ -171,15 +171,15 @@ sequenceDiagram
     participant WiFiModem as Capa Wi-Fi (ESP-NOW)
     participant BTModem as Pila Bluetooth Clásico
 
-    Usuario->>Robot: Comando 'X' o '#' (Solicitud de cambio a BT)
+    Usuario->>Robot: Comando X o Almohadilla - Solicitud de cambio a BT
     Note over Robot: Bandera solicitarActivarBT = true
     Robot->>Robot: detenerMotores()
     Robot->>WiFiModem: esp_now_deinit()
     Robot->>WiFiModem: WiFi.mode(WIFI_OFF)
-    Note over Robot: Pausa de estabilización de hardware (200 ms)
-    Robot->>BTModem: SerialBT.begin("ESP32_Sumo_Robot")
+    Note over Robot: Pausa de estabilizacion de hardware 200 ms
+    Robot->>BTModem: SerialBT.begin ESP32_Sumo_Robot
     Note over Robot: Bluetooth activo y visible para la App
-    Robot-->>Usuario: Feedback en LCD: "BT: Activo"
+    Robot-->>Usuario: Feedback en LCD: BT Activo
 ```
 
 ### 5.3. Máquina de Estados del Modo Autónomo

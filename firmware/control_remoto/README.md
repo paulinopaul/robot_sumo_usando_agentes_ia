@@ -9,23 +9,23 @@ Este módulo implementa el firmware del transmisor manual basado en **ESP32 DevK
 ```mermaid
 flowchart TD
     Inicio([Inicio / Reset]) --> InitSerial[Inicializar Serial a 115200 baud]
-    InitSerial --> InitWiFi[Configurar Wi-Fi en modo Estación WIFI_STA]
+    InitSerial --> InitWiFi[Configurar Wi-Fi en modo Estacion WIFI_STA]
     InitWiFi --> InitESPNow{esp_now_init == ESP_OK}
     
-    InitESPNow -- No --> ErrorNow[Imprimir 'Error iniciando ESP-NOW' y Terminar]
-    InitESPNow -- Sí --> ConfigPeer[Configurar Peer Info: MAC, Canal 0, Sin cifrado]
+    InitESPNow -- No --> ErrorNow[Imprimir Error iniciando ESP-NOW y Terminar]
+    InitESPNow -- Si --> ConfigPeer[Configurar Peer Info: MAC, Canal 0, Sin cifrado]
     ConfigPeer --> AddPeer[Registrar Peer con esp_now_add_peer]
     AddPeer --> LoopPrincipal[Entrar a Bucle loop]
     
-    LoopPrincipal --> ScanKey[Escanear Tecla: teclado.getKey]
-    ScanKey --> KeyPressed{¿Tecla detectada?}
+    LoopPrincipal --> ScanKey[Escanear Tecla con teclado.getKey]
+    ScanKey --> KeyPressed{Tecla detectada}
     
     KeyPressed -- No --> LoopPrincipal
-    KeyPressed -- Sí --> SwitchCase[Traducir Tecla a Comando Unificado]
+    KeyPressed -- Si --> SwitchCase[Traducir Tecla a Comando Unificado]
     
-    SwitchCase --> ValidCmd{¿cmdTraducido != 0?}
+    SwitchCase --> ValidCmd{cmdTraducido != 0}
     ValidCmd -- No --> LoopPrincipal
-    ValidCmd -- Sí --> SendPacket[Cargar struct_message y enviar con esp_now_send]
+    ValidCmd -- Si --> SendPacket[Cargar struct_message y enviar con esp_now_send]
     SendPacket --> LogSerial[Imprimir Comando Enviado en Serial]
     LogSerial --> LoopPrincipal
 ```
