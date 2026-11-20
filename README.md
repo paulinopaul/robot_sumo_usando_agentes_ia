@@ -118,7 +118,7 @@ El vehículo utiliza un controlador **ESP32 DevKitC V4** conectado a periférico
 | **Pantalla LCD 1602 I2C** | Línea de Datos (SDA) | **GPIO 21** | Bus serie de datos I2C (Pull-up integrada) |
 | | Línea de Reloj (SCL) | **GPIO 22** | Bus de reloj I2C (Dirección fija `0x27`) |
 
-### 3.2. Microcontrolador Emisor (Mando de Control Remoto ESP-NOW)
+### 4.2. Microcontrolador Emisor (Mando de Control Remoto ESP-NOW)
 
 El mando a distancia utiliza un teclado matricial de membrana de 16 teclas (4x4):
 
@@ -135,9 +135,9 @@ El mando a distancia utiliza un teclado matricial de membrana de 16 teclas (4x4)
 
 ---
 
-## 4. Lógica de Control, Modos y Protocolo de Comunicación
+## 5. Lógica de Control, Modos y Protocolo de Comunicación
 
-### 4.1. Mapeo de Teclas del Control Remoto
+### 5.1. Mapeo de Teclas del Control Remoto
 
 El mando traduce las pulsaciones a códigos de comando unificados enviados vía ESP-NOW a la dirección MAC del robot (`D4:E9:F4:E2:F1:24`):
 
@@ -153,7 +153,7 @@ El mando traduce las pulsaciones a códigos de comando unificados enviados vía 
 | **'C'** | `'C'` | **Habilitación de Movimiento**: Confirmación de arranque |
 | **'#'** | `'#'` | **Activación Directa de Bluetooth en Modo Manual** |
 
-### 4.2. Estrategia de Coexistencia RF (ESP-NOW vs. Bluetooth)
+### 5.2. Estrategia de Coexistencia RF (ESP-NOW vs. Bluetooth)
 
 > [!IMPORTANT]
 > El ESP32 cuenta con un único transceptor de radiofrecuencia de 2.4 GHz compartido entre Wi-Fi y Bluetooth. Activar ambos módulos simultáneamente sin una gestión estricta de tiempo compartido (*time-slicing*) puede provocar desbordamientos de memoria de pila (*heap exhaustion*), latencias inaceptables en combate o congelamiento del módem de radio.
@@ -179,7 +179,7 @@ sequenceDiagram
     Robot-->>Usuario: Feedback en LCD: "BT: Activo"
 ```
 
-### 4.3. Máquina de Estados del Modo Autónomo
+### 5.3. Máquina de Estados del Modo Autónomo
 
 En el Modo Autónomo, el robot evalúa continuamente la distancia frente a sí mediante el sensor ultrasónico:
 - **Distancia < 30 cm**: Se detecta al adversario en la trayectoria. Se imprime `EMBESTIDA!` en la pantalla LCD y se acciona la tracción a máxima potencia (`PWM = 255`).
@@ -188,9 +188,9 @@ En el Modo Autónomo, el robot evalúa continuamente la distancia frente a sí m
 
 ---
 
-## 5. Aplicación Móvil (MIT App Inventor)
+## 6. Aplicación Móvil (MIT App Inventor)
 
-El archivo [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip) contiene el proyecto completo de MIT App Inventor.
+El directorio [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/) contiene el proyecto completo descomprimido de MIT App Inventor, además del archivo original empaquetado [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip). Para el análisis detallado de pantallas, bloques y assets, consultar el [README de la Aplicación Móvil](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/README.md).
 
 ### Características de la App:
 - **Selector de Lista Bluetooth**: Escaneo y emparejamiento con el dispositivo `ESP32_Sumo_Robot`.
@@ -199,11 +199,11 @@ El archivo [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_s
 
 ---
 
-## 6. Ingeniería Asistida por Agentes de IA y Metodología ODD
+## 7. Ingeniería Asistida por Agentes de IA y Metodología ODD
 
 El desarrollo, depuración y estabilización de este sistema de robótica embebida se realizó mediante el uso activo de **Agentes de Inteligencia Artificial** basados en modelos de lenguaje y razonamiento de última generación, incluyendo **Google Antigravity**, **OpenCode** y **Codex**.
 
-### 6.1. ¿Qué es un Agente de IA y en qué se diferencia de un Chatbot Tradicional?
+### 7.1. ¿Qué es un Agente de IA y en qué se diferencia de un Chatbot Tradicional?
 
 Un error conceptual frecuente en la ingeniería actual es equiparar un **Agente de IA** con un **Chatbot conversacional estándar**:
 
@@ -234,7 +234,7 @@ graph LR
 
 ---
 
-### 6.2. Flujo de Trabajo Sistemático de Resolución de Problemas
+### 7.2. Flujo de Trabajo Sistemático de Resolución de Problemas
 
 Durante el ciclo de vida del firmware del robot sumo, la detección y corrección de incidencias siguió un protocolo riguroso:
 
@@ -251,7 +251,7 @@ flowchart TD
 1. **Detección y Consulta del Error**:
    El desarrollador reporta los síntomas observados en hardware o simulación (por ejemplo, desconexiones intermitentes de ESP-NOW al activar Bluetooth, lecturas anómalas de `pulseIn` en el sensor ultrasónico o bloqueos del bus I2C).
 2. **Ingestión Profunda del Workspace**:
-   El agente no opera sobre fragmentos aislados; lee el árbol completo de directorios, examinando el esquema de hardware ([`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/diagram.json)), las dependencias de librerías ([`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/libraries.txt)) y el código del firmware ([`sketch.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/sketch.ino)).
+   El agente no opera sobre fragmentos aislados; lee el árbol completo de directorios, examinando el esquema de hardware ([`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/diagram.json)), las dependencias de librerías ([`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/libraries.txt)) y los firmwares modulares en [`firmware/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/).
 3. **Análisis Estático y Dinámico de Código**:
    Se efectúa una auditoría de recursos: comprobación de conflictos entre pines analógicos del ADC2 (los cuales se inhabilitan cuando el Wi-Fi está encendido en el ESP32), asignación de temporizadores PWM y cálculo de consumo de corriente teórico.
 4. **Bucle de Clarificación y Preguntas de Contexto**:
@@ -267,7 +267,7 @@ flowchart TD
 
 ---
 
-### 6.3. El Potencial de los Agentes de IA en la Educación y el Aprendizaje
+### 7.3. El Potencial de los Agentes de IA en la Educación y el Aprendizaje
 
 La integración de agentes autónomos en la formación técnica marca un cambio de paradigma pedagógico:
 
@@ -280,19 +280,20 @@ La integración de agentes autónomos en la formación técnica marca un cambio 
 
 ---
 
-## 7. Guía de Ejecución y Simulación
+## 8. Guía de Ejecución y Simulación
 
-### 7.1. Simulación en Wokwi
+### 8.1. Simulación en Wokwi
 1. Abrir el entorno [Wokwi para VS Code](https://wokwi.com/) o la plataforma web.
 2. Cargar el archivo de conexión física [`diagram.json`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/diagram.json).
 3. Asegurar que las librerías `LiquidCrystal_I2C` y `Keypad` estén registradas en [`libraries.txt`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/libraries.txt).
 4. Iniciar la simulación y presionar las teclas en el teclado matricial para verificar la respuesta de los motores en pantalla y consola serial.
 
-### 7.2. Carga en Hardware Físico
+### 8.2. Carga en Hardware Físico
 1. En el **IDE de Arduino** o **PlatformIO**, seleccionar la placa **ESP32 Dev Module**.
 2. Instalar las dependencias requeridas mediante el Gestor de Bibliotecas:
    - `LiquidCrystal_I2C` by Frank de Brabander.
    - `Keypad` by Mark Stanley.
    - Soporte nativo de `BluetoothSerial`, `WiFi` y `esp_now` (incluidas en el core ESP32).
-3. Compilar y flashear el código del emisor en el microcontrolador del mando y el código del receptor en el microcontrolador del robot.
-4. Para emparejar con la aplicación móvil, instalar el APK compilado desde [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip) y vincular con el dispositivo `ESP32_Sumo_Robot`.
+3. Compilar y flashear el código del emisor en [`firmware/control_remoto/control_remoto.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/control_remoto/control_remoto.ino) en el microcontrolador del mando.
+4. Compilar y flashear el código del receptor en [`firmware/robot_sumo/robot_sumo.ino`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/firmware/robot_sumo/robot_sumo.ino) en el microcontrolador del robot.
+5. Para emparejar con la aplicación móvil, instalar el APK compilado desde [`RobotSumoV2.aia.zip`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/RobotSumoV2.aia.zip) (o desde [`app/`](file:///home/paul/Documents/workfiles/robot_sumo_usando_agenteS_de_ia/app/)) y vincular con el dispositivo `ESP32_Sumo_Robot`.
