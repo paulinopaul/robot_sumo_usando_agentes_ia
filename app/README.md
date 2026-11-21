@@ -27,24 +27,24 @@ app/
 ```mermaid
 flowchart TD
     AppLaunch([Apertura de la App]) --> ListPickerBefore[Evento: ListPicker.BeforePicking]
-    ListPickerBefore --> ScanBT[Listar direcciones y nombres de dispositivos Bluetooth vinculados]
+    ListPickerBefore --> ScanBT[Listar nombres de dispositivos Bluetooth vinculados]
     
-    ScanBT --> SelectDevice[Usuario selecciona 'ESP32_Sumo_Robot']
+    ScanBT --> SelectDevice[Usuario selecciona ESP32_Sumo_Robot]
     SelectDevice --> ListPickerAfter[Evento: ListPicker.AfterPicking]
     
     ListPickerAfter --> ConnectBT{BluetoothClient.Connect}
-    ConnectBT -- Fallo --> MsgError[Mostrar alerta de conexión fallida]
-    ConnectBT -- Éxito --> StateConnected[Actualizar etiqueta: Conectado a ESP32_Sumo_Robot]
+    ConnectBT -- Fallo --> MsgError[Mostrar alerta de conexion fallida]
+    ConnectBT -- Exito --> StateConnected[Actualizar etiqueta: Conectado a ESP32_Sumo_Robot]
     
-    StateConnected --> TouchEvents{Interacción del Usuario}
+    StateConnected --> TouchEvents{Interaccion del Usuario}
     
-    TouchEvents -- Botón Adelante --> SendF[BluetoothClient.SendText 'F']
-    TouchEvents -- Botón Atrás --> SendB[BluetoothClient.SendText 'B']
-    TouchEvents -- Botón Izquierda --> SendL[BluetoothClient.SendText 'L']
-    TouchEvents -- Botón Derecha --> SendR[BluetoothClient.SendText 'R']
-    TouchEvents -- Soltar Botón / Stop --> SendS[BluetoothClient.SendText 'S']
-    TouchEvents -- Botón Modo Manual --> SendA[BluetoothClient.SendText 'A']
-    TouchEvents -- Botón Modo Autónomo --> SendX[BluetoothClient.SendText 'X']
+    TouchEvents -- Boton Adelante --> SendF[BluetoothClient.SendText F]
+    TouchEvents -- Boton Atras --> SendB[BluetoothClient.SendText B]
+    TouchEvents -- Boton Izquierda --> SendL[BluetoothClient.SendText L]
+    TouchEvents -- Boton Derecha --> SendR[BluetoothClient.SendText R]
+    TouchEvents -- Soltar Boton o Stop --> SendS[BluetoothClient.SendText S]
+    TouchEvents -- Boton Modo Manual --> SendA[BluetoothClient.SendText A]
+    TouchEvents -- Boton Modo Autonomo --> SendX[BluetoothClient.SendText X]
 ```
 
 ---

@@ -182,7 +182,37 @@ sequenceDiagram
     Robot-->>Usuario: Feedback en LCD: BT Activo
 ```
 
-### 5.3. Máquina de Estados del Modo Autónomo
+### 5.3. Justificación Técnica: ESP-NOW frente a Bluetooth SPP
+
+La decisión de integrar **ESP-NOW** en lugar de depender exclusivamente del control Bluetooth desde la aplicación móvil responde a criterios técnicos determinantes en robótica de competencia:
+
+| Criterio / Parámetro | Bluetooth Clásico (SPP) / App Android | ESP-NOW (Transmisión Directa 2.4 GHz) |
+| :--- | :--- | :--- |
+| **Alcance Operativo** | Limitado (~5 a 10 metros en entorno saturado o con obstáculos) | **Extenso** (~100 a 200 metros en línea de vista directa) |
+| **Latencia de Transmisión** | Media (~20 a 50 ms por pila de protocolos y polling de app) | **Ultra Baja** (< 2 a 5 ms mediante tramas directas capa MAC) |
+| **Conexión y Enlace** | Requiere emparejamiento previo y sesión activa mantenida | Comunicación sin conexión (*connectionless*) punto a punto |
+| **Sobrecarga de Paquete** | Overhead de capas Bluetooth SPP | Carga mínima de 1 byte de payload en `struct_message` |
+
+> [!NOTE]
+> La ventaja en distancia de **ESP-NOW** justifica ampliamente el diseño del transmisor físico: permite maniobrar el robot en pistas grandes o campos abiertos con respuesta inmediata, superando el reducido rango del Bluetooth del teléfono.
+
+### 5.4. Retos Experimentales de Hardware y Dinámica de Movimiento
+
+Durante las pruebas físicas del robot sumo surgieron dos desafíos técnicos fundamentales de integración electromecánica:
+
+1. **Consumo de Batería y Caídas de Tensión (Brownouts)**:
+   - El transmisor y receptor ESP32 demandan picos de corriente transitorios de entre 240 y 300 mA al emitir por radiofrecuencia a máxima potencia.
+   - Al operar simultáneamente con los dos motores DC desde una batería con resistencia interna o descarga rápida, los picos de arranque (*inrush current*) provocaban caídas abruptas de voltaje (*voltage sags*). Esto causaba reinicios esporádicos del ESP32 por su detector interno de brownout y mermaba el torque disponible en el puente H.
+
+2. **Asimetría de Velocidad en el Puente H L9110S y Desviación de Trayectoria**:
+   - En ensayos de avance rectilíneo (`Comando 'F'`), se constató que **un solo motor giraba a mayor velocidad angular que el otro**, a pesar de recibir idéntico valor de señal PWM (ej. 230).
+   - **Causas Detectadas**:
+     * Caídas de tensión disimilares en los transistores internos de los dos canales del circuito integrado L9110S por tolerancias de fabricación.
+     * Diferencias mecánicas en la fricción interna de los engranajes de la caja reductora y variaciones en la resistencia/inductancia de devanado de los motores DC económicos.
+   - **Efecto en el Robot**: Desviación angular indeseada de la línea recta (deriva), afectando la puntería en las maniobras de embestida contra el rival.
+   - **Estrategia de Compensación**: Calibración por firmware aplicando factores de offset PWM asimétricos (ej. `analogWrite` con PWM 230 en el motor lento y PWM 205 en el motor rápido), o a futuro mediante la incorporación de encoders en las ruedas para control en lazo cerrado (PID).
+
+### 5.5. Máquina de Estados del Modo Autónomo
 
 En el Modo Autónomo, el robot evalúa continuamente la distancia frente a sí mediante el sensor ultrasónico:
 - **Distancia < 30 cm**: Se detecta al adversario en la trayectoria. Se imprime `EMBESTIDA!` en la pantalla LCD y se acciona la tracción a máxima potencia (`PWM = 255`).
@@ -212,19 +242,22 @@ Un error conceptual frecuente en la ingeniería actual es equiparar un **Agente 
 
 ```mermaid
 graph LR
-    subgraph Chatbot["Chatbot Clásico (LLM Reactivo)"]
+    subgraph Chatbot["Chatbot Clasico - LLM Reactivo"]
         A1["Pregunta del Usuario"] --> B1["Modelo de Lenguaje"]
-        B1 --> C1["Respuesta de Texto Estática"]
-        C1 -.->|Sin validación ni entorno| D1["Código No Verificado"]
+        B1 --> C1["Respuesta de Texto Estatica"]
+        C1 -.->|Sin validacion ni entorno| D1["Codigo No Verificado"]
     end
 
-    subgraph Agente["Agente de IA (Antigravity / ODD)"]
-        A2["Objetivo de Ingeniería"] --> B2["Ciclo: Percepción -> Plan -> Acción"]
-        B2 --> C2["Inspección del Workspace & Código"]
-        C2 --> D2["Ejecución de Herramientas (CLI, Compilador)"]
-        D2 --> E2["Validación de Hipótesis y Diagnóstico"]
-        E2 -->|Iteración hasta resolución| B2
-        E2 --> F2["Solución Verificada & Probada"]
+    subgraph Agente["Agente de IA - Antigravity / ODD"]
+        A2["Objetivo de Ingenieria"] --> B2["Ciclo: Percepcion - Plan - Accion"]
+        B2 --> C2["Inspeccion del Workspace y Codigo"]
+        D2["Ejecucion de Herramientas CLI y Compilador"]
+        E2["Validacion de Hipotesis y Diagnostico"]
+        B2 --> C2
+        C2 --> D2
+        D2 --> E2
+        E2 -->|Iteracion hasta resolucion| B2
+        E2 --> F2["Solucion Verificada y Probada"]
     end
 ```
 

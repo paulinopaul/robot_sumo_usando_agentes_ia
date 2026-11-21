@@ -153,3 +153,10 @@ El bucle ejecuta 3 tareas no bloqueantes:
 - **`medirDistancia()`**: Genera un pulso limpio de 10 $\mu\text{s}$ en `TRIG_PIN` y mide el tiempo de respuesta en `ECHO_PIN` con un timeout de 25000 $\mu\text{s}$ (aprox. 4 metros). Calcula la distancia en centímetros mediante la constante de velocidad del sonido ($0.034 / 2$). Retorna `999` si el pulso expira.
 - **`setLED(int r, int g, int b)`**: Modula la intensidad de color del LED RGB mediante modulación por ancho de pulsos.
 - **`actualizarLCD(String linea1, String linea2)`**: Limpia y refresca las dos líneas del display de 16 caracteres.
+
+---
+
+## 3. Retos de Calibración Electromecánica y Batería
+
+- **Asimetría de Velocidad en Tracción**: En la práctica, ante señales PWM idénticas (ej. 230), un motor gira con mayor velocidad angular debido a tolerancias de conmutación en el circuito integrado L9110S y variaciones en la fricción de las reductoras mecánicas. Para contrarrestar el desvío en línea recta, se recomienda aplicar un offset diferencial en `moverMotores()` (ej. motor izquierdo a PWM 230 y motor derecho a PWM 205).
+- **Consumo Energético y Caídas de Voltaje**: La radio 2.4 GHz combinada con la corriente de arranque de los motores exige una batería de baja resistencia interna y desacoplo capacitivo para evitar caídas de tensión que puedan gatillar el detector de brownout del ESP32.
